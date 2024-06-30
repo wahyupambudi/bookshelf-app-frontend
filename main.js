@@ -50,7 +50,6 @@ const renderBooks = () => {
 
   for (const book of books) {
     const bookElement = addElementBook(book);
-    console.log(book);
     if (!book.isComplete) incompleteBookList.append(bookElement);
     else completeBookList.append(bookElement);
   }
@@ -196,7 +195,6 @@ const setBookToIsNotReading = (bookId) => {
 
 const editBook = (bookId) => {
   const bookTarget = findBook(bookId);
-  console.log(bookTarget);
   document.getElementById("getBookId").value = bookTarget.id;
   document.getElementById("bookFormTitleEdit").value = bookTarget.title;
   document.getElementById("bookFormAuthorEdit").value = bookTarget.author;
