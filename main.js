@@ -50,7 +50,7 @@ const renderBooks = () => {
 
   for (const book of books) {
     const bookElement = addElementBook(book);
-    console.log(book)
+    console.log(book);
     if (!book.isComplete) incompleteBookList.append(bookElement);
     else completeBookList.append(bookElement);
   }
@@ -196,33 +196,37 @@ const setBookToIsNotReading = (bookId) => {
 
 const editBook = (bookId) => {
   const bookTarget = findBook(bookId);
+  console.log(bookTarget);
   document.getElementById("getBookId").value = bookTarget.id;
   document.getElementById("bookFormTitleEdit").value = bookTarget.title;
   document.getElementById("bookFormAuthorEdit").value = bookTarget.author;
   document.getElementById("bookFormYearEdit").value = bookTarget.year;
   document.getElementById("bookFormIsCompleteEdit").checked =
     bookTarget.isComplete;
-
-  const formEdit = document.getElementById("bookFormEdit");
-  formEdit.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const updatedBook = {
-      id: bookTarget.id,
-      title: document.getElementById("bookFormTitleEdit").value,
-      author: document.getElementById("bookFormAuthorEdit").value,
-      year: document.getElementById("bookFormYearEdit").value,
-      isComplete: document.getElementById("bookFormIsCompleteEdit").checked,
-    };
-
-    bookTarget.title = updatedBook.title;
-    bookTarget.author = updatedBook.author;
-    bookTarget.year = updatedBook.year;
-    bookTarget.isComplete = updatedBook.isComplete;
-    updateDataToStorage();
-    renderBooks();
-  });
 };
+
+const formEdit = document.getElementById("bookFormEdit");
+formEdit.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const bookId = document.getElementById("getBookId").value;
+  const bookTarget = findBook(parseInt(bookId));
+
+  const updatedBook = {
+    id: bookTarget.id,
+    title: document.getElementById("bookFormTitleEdit").value,
+    author: document.getElementById("bookFormAuthorEdit").value,
+    year: document.getElementById("bookFormYearEdit").value,
+    isComplete: document.getElementById("bookFormIsCompleteEdit").checked,
+  };
+
+  bookTarget.title = updatedBook.title;
+  bookTarget.author = updatedBook.author;
+  bookTarget.year = parseInt(updatedBook.year);
+  bookTarget.isComplete = updatedBook.isComplete;
+  updateDataToStorage();
+  renderBooks();
+});
 
 const deleteBook = (bookId) => {
   const bookTarget = findBookIndex(bookId);
