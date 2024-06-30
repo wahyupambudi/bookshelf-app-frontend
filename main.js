@@ -1,6 +1,5 @@
 let books = [];
 const STORAGE_KEY = "books-app";
-
 const incompleteBookList = document.getElementById("incompleteBookList");
 const completeBookList = document.getElementById("completeBookList");
 
@@ -23,7 +22,7 @@ const createObjectBooks = (id, title, author, year, isComplete) => {
     id,
     title,
     author,
-    year,
+    year: parseInt(year),
     isComplete,
   };
 };
@@ -51,6 +50,7 @@ const renderBooks = () => {
 
   for (const book of books) {
     const bookElement = addElementBook(book);
+    console.log(book)
     if (!book.isComplete) incompleteBookList.append(bookElement);
     else completeBookList.append(bookElement);
   }
@@ -345,9 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .getElementById("searchBookTitle")
       .value.trim()
       .toLowerCase();
-    console.log(searchTitleBook);
     const searchResult = searchBook(searchTitleBook);
-    console.log(searchResult);
 
     renderResult(searchResult);
   });
